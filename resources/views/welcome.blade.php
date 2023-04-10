@@ -22,49 +22,28 @@
         </style>
     </head>
     <body class="antialiased">
-    <div class="conteiner-fluid">
-        <div class="row">
-            <form action="{{route('link')}}" method="POST" id="form">
-                @csrf
-                <div class="mb-3">
-                    <label for="url" class="form-label">Url</label>
-                    <input type="text" class="form-control"  name="url" id="url" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">Введите Url aдресс</div>
+    <div class="container bgcont center-block mt-5">
+        <div class="row background-row">
+            <div class="w-50 mx-auto">
+                <form action="{{route('link')}}" method="POST" id="form">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="url" class="form-label">Url</label>
+                        <input type="text" class="form-control"  name="url" id="url" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">Введите Url aдресс</div>
+                    </div>
+
+                    <button type="submit" id="submit" class="btn btn-primary">Отправить</button>
+                </form>
+
+                <div>
+                    <a id="newUrl" target="__blank" href="#"></a>
                 </div>
-
-                <button type="submit" id="submit" class="btn btn-primary">Отправить</button>
-            </form>
-
-            <div>
-                <a id="newUrl" target="__blank" href="#"></a>
             </div>
+
         </div>
     </div>
-    <script>
-        document.getElementById('form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const url = document.querySelector('#url').value;
-
-            const formData = await new FormData(this)
-
-
-            const response = await fetch(this.action, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    'X-CSRF-TOKEN': formData.get('_token')
-                },
-                body: JSON.stringify({url: url})
-            })
-            const answer = await response.json();
-
-            const newUrl = answer.new_url;
-            document.querySelector('#newUrl').href = newUrl
-            document.querySelector('#newUrl').innerHTML = newUrl
-
-
-        });
-    </script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     </body>
